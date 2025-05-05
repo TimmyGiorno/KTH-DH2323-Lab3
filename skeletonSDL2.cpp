@@ -8,6 +8,7 @@
 using namespace std;
 using glm::vec3;
 using glm::mat3;
+using glm::ivec2;
 
 // ----------------------------------------------------------------------------
 // GLOBAL VARIABLES
@@ -17,13 +18,15 @@ const int SCREEN_HEIGHT = 500;
 SDL2Aux *sdlAux;
 int t;
 vector<Triangle> triangles;
+vec3 cameraPos(0, 0, -3.001); // Fixed camera position
+float focalLength = SCREEN_HEIGHT;
 
 // ----------------------------------------------------------------------------
 // FUNCTIONS
 
 void Update(void);
 void Draw(void);
-void VertexShader(const vec3& v, glm::vec2& p);
+void VertexShader(const vec3& v, ivec2& p);
 
 int SDL_main(int argc, char* argv[])
 {
@@ -50,16 +53,16 @@ void Update(void)
 
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 	if (keystate[SDL_SCANCODE_UP]) {
-		// Move camera forward
+		cameraPos.z += 0.05f;
 	}
 	if (keystate[SDL_SCANCODE_DOWN]) {
-		// Move camera backward
+		cameraPos.z -= 0.05f;
 	}
 	if (keystate[SDL_SCANCODE_LEFT]) {
-		// Move camera to the left
+		cameraPos.x -= 0.05f;
 	}
 	if (keystate[SDL_SCANCODE_RIGHT]) {
-		// Move camera to the right
+		cameraPos.x += 0.05f;
 	}
 	if (keystate[SDL_SCANCODE_W]) {
 
@@ -93,9 +96,24 @@ void Draw()
 		vertices[1] = triangles[i].v1;
 		vertices[2] = triangles[i].v2;
 
-		// Add drawing
+		for (int v = 0; v < 3; ++v)
+		{
+			ivec2 projPos;
+			VertexShader(vertices[v], projPos);
+			vec3 color(1, 1, 1);
+			if (projPos.x >= 0 && projPos.x < SCREEN_WIDTH && projPos.y >= 0 && projPos.y < SCREEN_HEIGHT)
+			{
+				sdlAux->putPixel(projPos.x, projPos.y, color);
+			}
+		}
 	}
 
 	sdlAux->render();
 }
 
+void VertexShader(const vec3& v, ivec2& p)
+{
+	vec3 cameraToVertex = v - cameraPos;
+	p.x = static_cast<int>(-focalLength * cameraToVertex.x / cameraToVertex.z + SCREEN_WIDTH / 2.0f);
+	p.y = static_cast<int>(-focalLength * cameraToVertex.y / cameraToVertex.z + SCREEN_HEIGHT / 2.0f);
+}
