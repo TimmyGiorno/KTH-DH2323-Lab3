@@ -3,10 +3,8 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-
 #include <glm/glm.hpp>
 #include <glm/gtx/constants.hpp>
-
 #include "SDL2auxiliary.h"
 #include "TestModel.h"
 
