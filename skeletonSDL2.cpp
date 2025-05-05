@@ -18,7 +18,6 @@ using glm::ivec2;
 
 // ----------------------------------------------------------------------------
 // GLOBAL VARIABLES
-
 const int SCREEN_WIDTH = 500;
 const int SCREEN_HEIGHT = 500;
 SDL2Aux *sdlAux;
@@ -52,29 +51,23 @@ struct Pixel
     vec3 illumination;
 };
 
-
 // ----------------------------------------------------------------------------
 // FUNCTIONS Prototypes
-
 void Update();
 void Draw();
-
 void PixelShader(const Pixel& p); // Task 7.1
 void VertexShader(const Vertex& v, Pixel& p); // Task 7.2 / 7.5
-
 void Interpolate(Pixel a, Pixel b, vector<Pixel>& result);
 void Interpolate(ivec2 a, ivec2 b, vector<ivec2>& result); // Kept for DrawLineSDL
-
 void ComputePolygonRows(const vector<Pixel>& vertexPixels, vector<Pixel>& leftPixels, vector<Pixel>& rightPixels);
 void DrawRows(const vector<Pixel>& leftPixels, const vector<Pixel>& rightPixels);
 void DrawPolygon(const vector<Vertex>& vertices); // Task 7.3
-
 void DrawLineSDL(ivec2 a, ivec2 b, vec3 color);
 void DrawPolygonEdges(const vector<Vertex>& vertices);
 
 
 // ----------------------------------------------------------------------------
-
+// FUNCTIONS
 int SDL_main(int argc, char* argv[])
 {
     LoadTestModel(triangles); // Load model
