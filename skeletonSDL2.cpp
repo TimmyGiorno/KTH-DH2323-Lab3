@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include "SDL2auxiliary.h"
 #include "TestModel.h"
-#include <algorithm> //for max()
+#include <algorithm>
 
 using namespace std;
 using glm::vec3;
