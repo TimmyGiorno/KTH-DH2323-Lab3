@@ -149,7 +149,6 @@ void VertexShader(const vec3& v, Pixel& p)
 	p.y = int(focalLength * rotated.y * p.zinv + SCREEN_HEIGHT / 2);
 }
 
-// Task 6.3: Implement Interpolate function for Pixel struct
 void Interpolate(Pixel a, Pixel b, vector<Pixel>& result)
 {
 	int N = result.size();
