@@ -31,8 +31,10 @@ float rotationSpeed = 0.002f; // Radians per ms
 float moveSpeed = 0.005f;
 float depthBuffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 vec3 lightPos(0.0f, -0.5f, -0.7f);
-vec3 lightPower = 1.5f * vec3(1.0f, 1.0f, 1.0f); // Reduced brightness
-vec3 indirectLightPowerPerArea = 0.3f * vec3(1.0f, 1.0f, 1.0f); // Slightly reduced indirect
+vec3 lightPower = 1.5f * vec3(1.0f, 1.0f, 1.0f);
+vec3 indirectLightPowerPerArea = 0.3f * vec3(1.0f, 1.0f, 1.0f);
+vec3 currentNormal;
+vec3 currentReflectance;
 
 struct Vertex
 {
